@@ -1,0 +1,8 @@
+# llama.cpp build 12030 with the model baked in, so it needs no network once built.
+FROM ghcr.io/ggml-org/llama.cpp:server@sha256:e67d88af487390098c76d7982b1761484339fa147b7e41d3c64ae1318759f78b
+# The target folder must already exist: --chmod also applies to folders that ADD creates.
+ADD --checksum=sha256:fb044e93939a70469c905781334f5de1e6c8b608ced6cbc8c9249bd4127d9526 \
+    --chmod=644 \
+    https://huggingface.co/bartowski/Qwen_Qwen3.5-0.8B-GGUF/resolve/f36b1ea49a332ede8fe5f389bbf5b3575ef71f48/Qwen_Qwen3.5-0.8B-Q4_K_M.gguf \
+    /app/model.gguf
+USER 65532:65532

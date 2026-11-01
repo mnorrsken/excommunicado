@@ -1,0 +1,55 @@
+services:
+  llama:
+    build:
+      context: .
+      dockerfile: Dockerfile.llama
+    image: localhost/excommunicado-llama
+    command:
+      - --model
+      - /app/model.gguf
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+      - --ctx-size
+      - "2048"
+      - --parallel
+      - "1"
+      - --threads
+      - "4"
+      - --cache-ram
+      - "0"
+      - --no-webui
+    # Together with the app below this is the 1 GB budget.
+    mem_limit: 950m
+    memswap_limit: 950m
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [private]
+
+  app:
+    build: .
+    image: localhost/excommunicado
+    command: ["--llm=http://llama:8080"]
+    ports:
+      # Only this PC can reach it.
+      - 127.0.0.1:47823:47823
+    volumes:
+      - certs:/data
+    mem_limit: 50m
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [private, public]
+
+networks:
+  # No way out to the internet for the model, so mail text cannot leave from there.
+  private:
+    internal: true
+  public:
+
+volumes:
+  certs:

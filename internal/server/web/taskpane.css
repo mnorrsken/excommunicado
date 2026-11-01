@@ -1,0 +1,95 @@
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --text: #1b1a19;
+  --muted: #605e5c;
+  --line: #d2d0ce;
+  --chip: #f3f2f1;
+  --accent: #0f6cbd;
+  --low: #107c10;
+  --mid: #b35c00;
+  --high: #c50f1f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f1f1f;
+    --text: #f3f2f1;
+    --muted: #b3b0ad;
+    --line: #484644;
+    --chip: #323130;
+    --accent: #479ef5;
+    --low: #54b054;
+    --mid: #eaa300;
+    --high: #f1707b;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 "Segoe UI", system-ui, sans-serif;
+}
+
+main { padding: 16px; max-width: 640px; margin: 0 auto; }
+
+label { display: block; margin-bottom: 6px; font-weight: 600; }
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font: inherit;
+  resize: vertical;
+}
+
+button {
+  margin-top: 8px;
+  padding: 6px 16px;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) { button { color: #000; } }
+
+#status { color: var(--muted); min-height: 1.4em; }
+
+#score-line { display: flex; align-items: baseline; gap: 4px; }
+#score { font-size: 56px; font-weight: 700; line-height: 1; }
+#out-of { font-size: 20px; color: var(--muted); }
+
+#meter {
+  height: 8px;
+  margin: 10px 0;
+  background: var(--chip);
+  border-radius: 4px;
+  overflow: hidden;
+}
+#meter-fill { height: 100%; width: 0; border-radius: 4px; transition: width .2s; }
+
+.low #score { color: var(--low); }
+.low #meter-fill { background: var(--low); }
+.mid #score { color: var(--mid); }
+.mid #meter-fill { background: var(--mid); }
+.high #score { color: var(--high); }
+.high #meter-fill { background: var(--high); }
+
+#verdict { margin: 0 0 16px; font-size: 16px; font-weight: 600; }
+
+h2 { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+
+#words { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none; }
+#words li { padding: 2px 8px; background: var(--chip); border-radius: 10px; font-size: 13px; }
+
+#note { color: var(--muted); font-size: 12px; }

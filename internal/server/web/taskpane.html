@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Excommunicado</title>
+  <link rel="stylesheet" href="taskpane.css">
+  <!-- Microsoft requires this file to come from their server. No mail text goes there. -->
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script src="taskpane.js" defer></script>
+</head>
+<body>
+  <main>
+    <form id="paste" hidden>
+      <label for="paste-text" id="paste-label"></label>
+      <textarea id="paste-text" rows="10"></textarea>
+      <button type="submit" id="paste-button"></button>
+    </form>
+    <p id="status" role="status"></p>
+    <section id="result" hidden>
+      <div id="score-line"><span id="score"></span><span id="out-of">/10</span></div>
+      <div id="meter"><div id="meter-fill"></div></div>
+      <p id="verdict"></p>
+      <h2 id="words-title"></h2>
+      <ul id="words"></ul>
+      <p id="note"></p>
+    </section>
+  </main>
+</body>
+</html>
