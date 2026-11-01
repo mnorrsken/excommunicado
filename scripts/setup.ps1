@@ -17,9 +17,11 @@ if (Get-Command podman -ErrorAction SilentlyContinue) {
     throw "Install Podman or Docker first."
 }
 
-Write-Host "Building and starting with $runtime. The first build downloads about 2 GB."
-& $runtime compose up -d --build
-if ($LASTEXITCODE -ne 0) { throw "$runtime compose failed." }
+Write-Host "Downloading the images with $runtime. The first time is about 900 MB."
+& $runtime compose pull
+if ($LASTEXITCODE -ne 0) { throw "$runtime compose pull failed." }
+& $runtime compose up -d --no-build
+if ($LASTEXITCODE -ne 0) { throw "$runtime compose up failed." }
 
 # curl.exe ships with Windows 10 and later. -k is needed here because the certificate
 # is what we are about to trust, and the connection only goes to this PC.

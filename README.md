@@ -25,7 +25,7 @@ You need Podman or Docker with `compose`. Both run containers in a small Linux V
 powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
 ```
 
-The script builds and starts the containers, then installs the HTTPS certificate for your Windows user. Windows asks once whether to trust it: answer Yes. No admin rights are needed for this step. Then add the add-in:
+The script downloads the x86 images from GitHub, starts the containers, then installs the HTTPS certificate for your Windows user. Windows asks once whether to trust it: answer Yes. No admin rights are needed for this step. Then add the add-in:
 
 1. Open <https://aka.ms/olksideload> and sign in.
 2. Choose **Custom Addins > Add a custom add-in > Add from File**.
@@ -39,7 +39,7 @@ The containers start again by themselves when the container runtime starts. With
 Works on macOS, Linux and Windows:
 
 ```sh
-make up        # or: podman compose up -d --build
+make up        # builds the images locally, or: podman compose up -d --build
 ```
 
 Open <https://localhost:47823/taskpane.html> and paste a mail. Your browser warns about the certificate until you trust it. On macOS:
@@ -89,6 +89,8 @@ The containers are limited to 950 MB (model) and 50 MB (app). Measured peak: abo
 make test vet build
 make race
 ```
+
+Pushing a `v*` tag runs the tests, then builds, scans and publishes the x86 images to `ghcr.io/mnorrsken/excommunicado` and `ghcr.io/mnorrsken/excommunicado-llama`.
 
 ## License
 
