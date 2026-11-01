@@ -20,9 +20,12 @@ services:
       - --cache-ram
       - "0"
       - --no-webui
+      - --no-slots
     # Together with the app below this is the 1 GB budget.
     mem_limit: 950m
     memswap_limit: 950m
+    pids_limit: 64
+    shm_size: 1m
     restart: unless-stopped
     read_only: true
     cap_drop: [ALL]
@@ -39,6 +42,8 @@ services:
     volumes:
       - certs:/data
     mem_limit: 50m
+    pids_limit: 64
+    shm_size: 1m
     restart: unless-stopped
     read_only: true
     cap_drop: [ALL]
